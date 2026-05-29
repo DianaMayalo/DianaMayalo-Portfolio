@@ -5,48 +5,55 @@ import { ExternalLink, Github, ArrowUpRight } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import Image from 'next/image'
 
 const projects = [
   {
     id: 1,
-    title: 'Nairobi Emergency Dashboard',
-    description: 'Real-time emergency response visualization system for Nairobi, enabling rapid situational awareness and resource allocation during critical incidents.',
-    longDescription: 'Built an interactive dashboard that aggregates emergency data sources, visualizes incident hotspots, and provides predictive analytics for emergency resource deployment.',
-    tech: ['Streamlit', 'Python', 'Pandas', 'Plotly', 'GeoPandas'],
+    title: 'Nairobi Emergency Dashboard (NED)',
+    description: 'A real-time, AI-powered emergency command center built for NADEMA that aggregates crowdsourced field updates and automates crisis summaries, accelerating disaster deployment and reducing response times across Nairobi County.',
+    tech: ['Streamlit', 'Python', 'Google Sheets API', 'Google Apps Script', 'Plotly Mapbox'],
     category: 'Data Visualization',
     gradient: 'from-orange-500/20 via-red-500/10 to-transparent',
     featured: true,
+    image: '/images/nairobi-dashboard.png',
+    demoUrl: '#', // Add your live demo URL here
+    githubUrl: '#', // Add your GitHub URL here
   },
   {
     id: 2,
     title: 'MAYA Tech',
-    description: 'Business automation agency delivering intelligent workflow solutions that streamline operations and enhance productivity for small to medium enterprises.',
-    longDescription: 'Founded and developed automation solutions including CRM integrations, automated reporting systems, and AI-powered customer service tools.',
-    tech: ['Python', 'Automation', 'APIs', 'No-Code Tools', 'AI Integration'],
+    description: 'An innovative technology agency specializing in custom business automation, data-driven dashboards, and predictive intelligence solutions for scaling enterprises.',
+    tech: ['Python', 'Google Apps Script', 'n8n', 'Make', 'Looker Studio', 'Gemini/GPT APIs'],
     category: 'Business Automation',
     gradient: 'from-primary/20 via-cyan-500/10 to-transparent',
     featured: true,
+    image: '/images/maya-tech.png',
+    demoUrl: '#', // Add your live demo URL here
   },
   {
     id: 3,
-    title: 'Clean Water AI',
-    description: 'Machine learning system leveraging satellite imagery to identify and monitor clean water sources across underserved regions.',
-    longDescription: 'Developed a comprehensive ML pipeline using Google Earth Engine to analyze satellite data, detect water bodies, and assess water quality indicators for humanitarian applications.',
-    tech: ['Google Earth Engine', 'Python', 'Machine Learning', 'Remote Sensing', 'TensorFlow'],
+    title: 'CleanWater AI',
+    description: 'Developed an end-to-end machine learning system integrating WPDx, GEMS, and Google Earth Engine satellite data to monitor water quality and predict contamination risks across 22,000+ water points in Kenya.',
+    tech: ['Python', 'XGBoost', 'NLP', 'Streamlit', 'Google Earth Engine API', 'Docker'],
     category: 'ML & Remote Sensing',
     gradient: 'from-blue-500/20 via-cyan-500/10 to-transparent',
     featured: true,
+    image: '/images/cleanwater-ai.png',
+    demoUrl: '#', // Add your live demo URL here
+    githubUrl: '#', // Add your GitHub URL here
   },
   {
     id: 4,
-    title: 'Crop Disease Classification',
-    description: 'Deep learning model achieving 94% accuracy in identifying plant diseases from leaf images, enabling early intervention for farmers.',
-    longDescription: 'Implemented a Convolutional Neural Network trained on thousands of crop images to classify various plant diseases, deployed as an accessible tool for agricultural communities.',
-    tech: ['TensorFlow', 'Keras', 'CNN', 'Python', 'Image Classification'],
+    title: 'Crop Disease Classification with CNN',
+    description: 'Built and deployed a custom convolutional neural network using TensorFlow/Keras to classify 15 types of healthy and diseased crop leaves from the PlantVillage dataset with data augmentation and Streamlit web deployment.',
+    tech: ['Python', 'TensorFlow/Keras', 'CNN', 'Computer Vision', 'Streamlit', 'Scikit-learn'],
     category: 'Deep Learning',
     gradient: 'from-green-500/20 via-emerald-500/10 to-transparent',
     featured: true,
     stats: '94% Accuracy',
+    image: '/images/crop-disease.png',
+    githubUrl: '#', // Add your GitHub URL here
   },
 ]
 
@@ -74,41 +81,52 @@ export function Projects() {
               onMouseEnter={() => setHoveredId(project.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
+              {/* Project Image */}
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+                {project.stats && (
+                  <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-primary/90 text-primary-foreground text-sm font-bold">
+                    {project.stats}
+                  </div>
+                )}
+              </div>
+
               {/* Gradient overlay */}
               <div className={cn(
-                'absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500',
+                'absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none',
                 project.gradient
               )} />
 
-              <div className="relative z-10 p-8">
+              <div className="relative z-10 p-6">
                 {/* Header */}
-                <div className="flex items-start justify-between mb-4">
+                <div className="flex items-start justify-between mb-3">
                   <div>
-                    <Badge variant="secondary" className="mb-3">
+                    <Badge variant="secondary" className="mb-2">
                       {project.category}
                     </Badge>
                     <h3 className="text-xl font-bold group-hover:text-primary transition-colors">
                       {project.title}
                     </h3>
                   </div>
-                  {project.stats && (
-                    <div className="text-right">
-                      <span className="text-2xl font-bold text-primary">{project.stats}</span>
-                    </div>
-                  )}
                 </div>
 
                 {/* Description */}
-                <p className="text-muted-foreground mb-6 leading-relaxed">
+                <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
                   {project.description}
                 </p>
 
                 {/* Tech stack */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 text-xs font-mono bg-secondary/80 rounded-full text-muted-foreground"
+                      className="px-2 py-1 text-xs font-mono bg-secondary/80 rounded-full text-muted-foreground"
                     >
                       {tech}
                     </span>
@@ -116,15 +134,23 @@ export function Projects() {
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-4">
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                    <Github className="w-4 h-4 mr-2" />
-                    Code
-                  </Button>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Demo
-                  </Button>
+                <div className="flex items-center gap-3">
+                  {project.githubUrl && (
+                    <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary" asChild>
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4 mr-2" />
+                        Code
+                      </a>
+                    </Button>
+                  )}
+                  {project.demoUrl && (
+                    <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary" asChild>
+                      <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Demo
+                      </a>
+                    </Button>
+                  )}
                   <div className="ml-auto">
                     <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
                   </div>

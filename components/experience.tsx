@@ -7,33 +7,61 @@ const experiences = [
   {
     type: 'work',
     title: 'Data Analyst Intern',
-    organization: 'Company Name',
-    location: 'Nairobi, Kenya',
-    period: '2023 - Present',
-    description: 'Analyzed large datasets to extract actionable business insights, built automated reporting systems, and collaborated with cross-functional teams to drive data-informed decisions.',
+    organization: 'Future Interns',
+    location: 'Bengaluru, India (Remote)',
+    period: 'Sep 2024 - Nov 2024',
+    description: 'Analyzed datasets and built machine learning models to support predictive analytics and data-driven decision making.',
     achievements: [
-      'Developed automated dashboards reducing reporting time by 60%',
-      'Implemented predictive models for customer behavior analysis',
-      'Created data pipelines processing 100K+ records daily',
+      'Analyzed the Titanic dataset to uncover survival patterns, supporting predictive model development',
+      'Built a loan eligibility model in Python with 81.3% accuracy, showcasing strong ML proficiency',
+      'Designed Power BI dashboards for IPL data, translating player metrics into actionable insights',
     ],
-    skills: ['Python', 'SQL', 'Power BI', 'Data Analysis'],
+    skills: ['Python', 'Machine Learning', 'Power BI', 'Data Analysis'],
+  },
+  {
+    type: 'work',
+    title: 'Data Analyst (Freelance)',
+    organization: 'Intelinkpro',
+    location: 'Remote',
+    period: 'Oct 2023 - Apr 2025',
+    description: 'Delivered tailored data solutions and analytics services to improve client outcomes and streamline business operations.',
+    achievements: [
+      'Delivered tailored insights through advanced data analysis, improving client outcomes by up to 15%',
+      'Automated Excel workflows, reducing reporting time by 30% and increasing accuracy',
+      'Built interactive Power BI dashboards to visualize key metrics and support fast decision-making',
+    ],
+    skills: ['Excel', 'Power BI', 'Automation', 'Data Analysis'],
   },
 ]
 
 const education = [
   {
     type: 'education',
-    title: 'Bachelor of Science in Actuarial Science',
-    organization: 'University Name',
+    title: 'Data Science Bootcamp',
+    organization: 'Moringa School',
     location: 'Nairobi, Kenya',
-    period: '2019 - 2023',
-    description: 'Specialized in statistical modeling, risk analysis, and financial mathematics. Strong foundation in probability theory and data analysis.',
+    period: 'Feb 2025 - Aug 2025',
+    description: 'Intensive data science program covering machine learning, deep learning, NLP, and real-world project development.',
     achievements: [
-      'Completed coursework in statistical inference and machine learning',
-      'Led data science study group and workshops',
-      'Relevant coursework: Probability, Statistics, Financial Mathematics',
+      'Hands-on experience with Python, ML algorithms, and data pipelines',
+      'Built end-to-end data science projects with industry mentorship',
+      'Collaborative learning environment with peer code reviews',
     ],
-    skills: ['Statistics', 'Risk Analysis', 'Mathematics', 'R'],
+    skills: ['Python', 'Machine Learning', 'Deep Learning', 'NLP'],
+  },
+  {
+    type: 'education',
+    title: 'Bachelor of Science in Actuarial Science',
+    organization: 'Jomo Kenyatta University of Agriculture and Technology',
+    location: 'Nairobi, Kenya',
+    period: 'Sep 2019 - June 2024',
+    description: 'Specialized in statistical modeling, risk analysis, and financial mathematics with a strong foundation in probability theory and quantitative analysis.',
+    achievements: [
+      'Strong foundation in probability, statistics, and financial mathematics',
+      'Coursework in statistical inference and risk modeling',
+      'Developed analytical and quantitative problem-solving skills',
+    ],
+    skills: ['Statistics', 'Risk Analysis', 'Mathematics', 'Quantitative Analysis'],
   },
 ]
 
@@ -132,7 +160,7 @@ export function Experience() {
                       </h4>
                       <p className="text-muted-foreground">{edu.organization}</p>
                     </div>
-                    <Badge variant="outline" className="shrink-0">
+                    <Badge variant="outline" className="shrink-0 text-xs">
                       <Calendar className="w-3 h-3 mr-1" />
                       {edu.period}
                     </Badge>
