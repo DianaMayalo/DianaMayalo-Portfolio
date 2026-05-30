@@ -26,7 +26,6 @@ export function Hero() {
           <nav className="hidden md:flex items-center gap-8">
             <a href="#about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">About</a>
             <a href="#projects" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Projects</a>
-            <a href="#experience" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Experience</a>
             <a href="#contact" className="text-sm font-medium text-primary hover:text-primary/80 transition-colors">Contact</a>
           </nav>
         </div>
