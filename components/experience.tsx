@@ -6,20 +6,6 @@ import { Badge } from '@/components/ui/badge'
 const experiences = [
   {
     type: 'work',
-    title: 'Data Analyst Intern',
-    organization: 'Future Interns',
-    location: 'Bengaluru, India (Remote)',
-    period: 'Sep 2024 - Nov 2024',
-    description: 'Analyzed datasets and built machine learning models to support predictive analytics and data-driven decision making.',
-    achievements: [
-      'Analyzed the Titanic dataset to uncover survival patterns, supporting predictive model development',
-      'Built a loan eligibility model in Python with 81.3% accuracy, showcasing strong ML proficiency',
-      'Designed Power BI dashboards for IPL data, translating player metrics into actionable insights',
-    ],
-    skills: ['Python', 'Machine Learning', 'Power BI', 'Data Analysis'],
-  },
-  {
-    type: 'work',
     title: 'Data Analyst (Freelance)',
     organization: 'Intelinkpro',
     location: 'Remote',
@@ -31,6 +17,20 @@ const experiences = [
       'Built interactive Power BI dashboards to visualize key metrics and support fast decision-making',
     ],
     skills: ['Excel', 'Power BI', 'Automation', 'Data Analysis'],
+  },
+  {
+    type: 'work',
+    title: 'Data Analyst Intern',
+    organization: 'Future Interns',
+    location: 'Bengaluru, India (Remote)',
+    period: 'Sep 2024 - Nov 2024',
+    description: 'Analyzed datasets and built machine learning models to support predictive analytics and data-driven decision making.',
+    achievements: [
+      'Analyzed the Titanic dataset to uncover survival patterns, supporting predictive model development',
+      'Built a loan eligibility model in Python with 81.3% accuracy, showcasing strong ML proficiency',
+      'Designed Power BI dashboards for IPL data, translating player metrics into actionable insights',
+    ],
+    skills: ['Python', 'Machine Learning', 'Power BI', 'Data Analysis'],
   },
 ]
 

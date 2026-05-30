@@ -1,6 +1,6 @@
 'use client'
 
-import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react'
+import { Github, Linkedin, Mail, ArrowDown, Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 export function Hero() {
@@ -75,6 +75,12 @@ export function Hero() {
 
           {/* CTA buttons */}
           <div className="flex flex-wrap items-center gap-4 pt-4">
+            <Button variant="outline" size="lg" asChild>
+              <a href="/Diana_Mayalo_CV.pdf" download>
+                <Download className="mr-2 w-4 h-4" />
+                Download CV
+              </a>
+            </Button>
             <Button onClick={scrollToProjects} size="lg" className="group">
               View Projects
               <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
