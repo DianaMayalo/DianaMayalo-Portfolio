@@ -104,20 +104,22 @@ export function SkillsGrid() {
               <div
                 key={category.title}
                 className={cn(
-                  'group relative rounded-2xl border bg-card/50 backdrop-blur-sm p-6 transition-all duration-300 hover:shadow-xl',
+                  'group relative overflow-hidden rounded-2xl border bg-card/50 backdrop-blur-sm p-6 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-2xl',
                   category.borderColor,
                   category.bgGlow,
                   category.size
                 )}
               >
-                {/* Subtle gradient overlay on hover */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                
+                {/* Ambient glow and shimmer */}
+                <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.08),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(129,140,248,0.08),transparent_25%)] opacity-70" />
+                <div className="absolute -top-10 -right-10 h-24 w-24 rounded-full bg-primary/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
                 <div className="relative z-10 h-full flex flex-col">
                   {/* Header */}
                   <div className="flex items-center gap-3 mb-4">
                     <div className={cn(
-                      'p-2.5 rounded-xl bg-background/80 border border-border/50',
+                      'animate-float p-2.5 rounded-xl bg-background/80 border border-border/50 shadow-sm',
                       'group-hover:scale-110 transition-transform duration-300'
                     )}>
                       <Icon className={cn('w-5 h-5', category.color)} />
@@ -136,7 +138,7 @@ export function SkillsGrid() {
                           {skillGroup.items.map((item) => (
                             <span
                               key={item}
-                              className="text-xs px-2 py-1 rounded-md bg-background/60 border border-border/40 text-foreground/80 hover:border-primary/40 hover:text-foreground transition-colors"
+                              className="text-xs px-2 py-1 rounded-md bg-background/60 border border-border/40 text-foreground/80 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:text-foreground"
                             >
                               {item}
                             </span>

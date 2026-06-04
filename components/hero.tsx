@@ -75,7 +75,7 @@ export function Hero() {
           {/* CTA buttons */}
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <Button variant="outline" size="lg" asChild>
-              <a href="/Diana_Mayalo_CV.pdf" download>
+              <a href="/Diana Mayalo CV ..pdf" download>
                 <Download className="mr-2 w-4 h-4" />
                 Download CV
               </a>
