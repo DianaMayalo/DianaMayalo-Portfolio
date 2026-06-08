@@ -80,9 +80,11 @@ export function Hero() {
                 Download CV
               </a>
             </Button>
-            <Button onClick={scrollToProjects} size="lg" className="group">
-              View Projects
-              <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
+            <Button size="lg" className="group" asChild>
+              <a href="#projects">
+                View Projects
+                <ArrowDown className="ml-2 w-4 h-4 group-hover:translate-y-1 transition-transform" />
+              </a>
             </Button>
             <Button variant="outline" size="lg" asChild>
               <a href="#contact">Get in Touch</a>

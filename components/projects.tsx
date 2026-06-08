@@ -1,61 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { ExternalLink, Github, ArrowUpRight } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { projects } from '@/lib/projects'
 import Image from 'next/image'
-
-const projects = [
-  {
-    id: 1,
-    title: 'Nairobi Emergency Dashboard (NED)',
-    description: 'A real-time, AI-powered emergency command center built for NADEMA that aggregates crowdsourced field updates and automates crisis summaries, accelerating disaster deployment and reducing response times across Nairobi County.',
-    tech: ['Streamlit', 'Python', 'Google Sheets API', 'Google Apps Script', 'Plotly Mapbox'],
-    category: 'Data Visualization',
-    gradient: 'from-orange-500/20 via-red-500/10 to-transparent',
-    featured: true,
-    image: '/images/nairobi-dashboard.png',
-    demoUrl: '#', // Add your live demo URL here
-    githubUrl: '#', // Add your GitHub URL here
-  },
-  {
-    id: 2,
-    title: 'MAYA Tech',
-    description: 'An innovative technology agency specializing in custom business automation, data-driven dashboards, and predictive intelligence solutions for scaling enterprises.',
-    tech: ['Python', 'Google Apps Script', 'n8n', 'Make', 'Looker Studio', 'Gemini/GPT APIs'],
-    category: 'Business Automation',
-    gradient: 'from-primary/20 via-cyan-500/10 to-transparent',
-    featured: true,
-    image: '/images/maya-tech.png',
-    demoUrl: '#', // Add your live demo URL here
-  },
-  {
-    id: 3,
-    title: 'CleanWater AI',
-    description: 'Developed an end-to-end machine learning system integrating WPDx, GEMS, and Google Earth Engine satellite data to monitor water quality and predict contamination risks across 22,000+ water points in Kenya.',
-    tech: ['Python', 'XGBoost', 'NLP', 'Streamlit', 'Google Earth Engine API', 'Docker'],
-    category: 'ML & Remote Sensing',
-    gradient: 'from-blue-500/20 via-cyan-500/10 to-transparent',
-    featured: true,
-    image: '/images/cleanwater-ai.png',
-    demoUrl: '#', // Add your live demo URL here
-    githubUrl: '#', // Add your GitHub URL here
-  },
-  {
-    id: 4,
-    title: 'Crop Disease Classification with CNN',
-    description: 'Built and deployed a custom convolutional neural network using TensorFlow/Keras to classify 15 types of healthy and diseased crop leaves from the PlantVillage dataset with data augmentation and Streamlit web deployment.',
-    tech: ['Python', 'TensorFlow/Keras', 'CNN', 'Computer Vision', 'Streamlit', 'Scikit-learn'],
-    category: 'Deep Learning',
-    gradient: 'from-green-500/20 via-emerald-500/10 to-transparent',
-    featured: true,
-    stats: '94% Accuracy',
-    image: '/images/crop-disease.png',
-    githubUrl: '#', // Add your GitHub URL here
-  },
-]
 
 export function Projects() {
   const [hoveredId, setHoveredId] = useState<number | null>(null)
@@ -137,20 +89,26 @@ export function Projects() {
                 <div className="flex items-center gap-3">
                   {project.githubUrl && (
                     <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary" asChild>
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                      <Link
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Github className="w-4 h-4 mr-2" />
                         Code
-                      </a>
+                      </Link>
                     </Button>
                   )}
-                  {project.demoUrl && (
-                    <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary" asChild>
-                      <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Demo
-                      </a>
-                    </Button>
-                  )}
+                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary" asChild>
+                    <Link
+                      href={project.demoUrl ?? `/projects/${project.slug}`}
+                      target={project.demoUrl ? '_blank' : undefined}
+                      rel={project.demoUrl ? 'noopener noreferrer' : undefined}
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Demo
+                    </Link>
+                  </Button>
                   <div className="ml-auto">
                     <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
                   </div>
