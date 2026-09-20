@@ -9,3 +9,12 @@ export const site = {
   /** The PDF in /public keeps its original filename; browsers percent-encode the spaces. */
   cvHref: '/Diana Mayalo CV ..pdf',
 } as const
+
+/** Primary navigation. Absolute hashes so links work from /projects/* and /card too. */
+export const navItems = [
+  { label: 'About', href: '/#about', id: 'about' },
+  { label: 'Projects', href: '/#projects', id: 'projects' },
+  { label: 'Contact', href: '/#contact', id: 'contact' },
+] as const
+
+export const sectionIds = navItems.map((item) => item.id)

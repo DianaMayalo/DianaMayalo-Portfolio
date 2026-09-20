@@ -1,30 +1,25 @@
 'use client'
 
-import { 
-  Brain, 
-  Database, 
-  LineChart, 
-  Code2, 
-  Cloud, 
-  Server,
-  Briefcase,
-  GitBranch,
-  Container,
-  BarChart3,
-  Layers,
-  Sparkles
-} from 'lucide-react'
+import { Brain, Database, Code2, Cloud, BarChart3, Sparkles, type LucideIcon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Reveal } from '@/components/motion/reveal'
 
-const skillCategories = [
+type SkillCategory = {
+  icon: LucideIcon
+  title: string
+  accent: string
+  border: string
+  size: string
+  skills: { name: string; items: string[] }[]
+}
+
+const skillCategories: SkillCategory[] = [
   {
     icon: Brain,
     title: 'Machine Learning & Advanced AI',
-    color: 'text-cyan-400',
-    borderColor: 'border-cyan-500/30 hover:border-cyan-500/60',
-    bgGlow: 'hover:shadow-cyan-500/10',
+    accent: 'text-cyan-400',
+    border: 'border-cyan-500/30 hover:border-cyan-500/60',
     size: 'md:col-span-2 md:row-span-2',
     skills: [
       { name: 'Deep Learning', items: ['CNN Architectures', 'Neural Networks', 'Image Classification'] },
@@ -36,10 +31,9 @@ const skillCategories = [
   {
     icon: Database,
     title: 'Data Engineering & Pipelines',
-    color: 'text-emerald-400',
-    borderColor: 'border-emerald-500/30 hover:border-emerald-500/60',
-    bgGlow: 'hover:shadow-emerald-500/10',
-    size: 'md:col-span-2 md:row-span-1',
+    accent: 'text-emerald-400',
+    border: 'border-emerald-500/30 hover:border-emerald-500/60',
+    size: 'md:col-span-2',
     skills: [
       { name: 'Languages', items: ['Python (Advanced)', 'SQL', 'PostgreSQL', 'MySQL'] },
       { name: 'Tools', items: ['Pandas', 'NumPy', 'ETL Pipelines', 'Data Wrangling'] },
@@ -48,10 +42,9 @@ const skillCategories = [
   {
     icon: Cloud,
     title: 'MLOps, Cloud & DevOps',
-    color: 'text-blue-400',
-    borderColor: 'border-blue-500/30 hover:border-blue-500/60',
-    bgGlow: 'hover:shadow-blue-500/10',
-    size: 'md:col-span-2 md:row-span-1',
+    accent: 'text-blue-400',
+    border: 'border-blue-500/30 hover:border-blue-500/60',
+    size: 'md:col-span-2',
     skills: [
       { name: 'Cloud', items: ['AWS (EC2, S3, Lambda)', 'Google Earth Engine', 'Vercel', 'Streamlit Cloud'] },
       { name: 'DevOps', items: ['Docker', 'GitHub Actions', 'CI/CD', 'Linux', 'Bash'] },
@@ -60,10 +53,9 @@ const skillCategories = [
   {
     icon: BarChart3,
     title: 'Business Intelligence & Analytics',
-    color: 'text-amber-400',
-    borderColor: 'border-amber-500/30 hover:border-amber-500/60',
-    bgGlow: 'hover:shadow-amber-500/10',
-    size: 'md:col-span-2 md:row-span-1',
+    accent: 'text-amber-400',
+    border: 'border-amber-500/30 hover:border-amber-500/60',
+    size: 'md:col-span-2',
     skills: [
       { name: 'BI Tools', items: ['Power BI', 'Tableau', 'Advanced Excel', 'SPSS'] },
       { name: 'Visualization', items: ['Matplotlib', 'Seaborn', 'Plotly', 'Dashboard Design'] },
@@ -72,10 +64,9 @@ const skillCategories = [
   {
     icon: Code2,
     title: 'Software Engineering & Strategy',
-    color: 'text-rose-400',
-    borderColor: 'border-rose-500/30 hover:border-rose-500/60',
-    bgGlow: 'hover:shadow-rose-500/10',
-    size: 'md:col-span-2 md:row-span-1',
+    accent: 'text-rose-400',
+    border: 'border-rose-500/30 hover:border-rose-500/60',
+    size: 'md:col-span-2',
     skills: [
       { name: 'Engineering', items: ['OOP', 'Git/GitHub', 'API Design', 'FastAPI', 'Flask'] },
       { name: 'Strategy', items: ['AI Consultancy', 'Process Automation', 'System Thinking'] },
@@ -85,74 +76,72 @@ const skillCategories = [
 
 export function SkillsGrid() {
   return (
-    <section id="about" className="py-24 px-6">
-      <div className="max-w-6xl mx-auto">
-        <Reveal className="mb-16 text-center">
+    <section id="about" aria-labelledby="about-heading" className="px-6 py-section">
+      <div className="mx-auto max-w-6xl">
+        <Reveal className="mb-14 text-center">
           <div data-reveal>
             <Badge variant="outline" className="mb-4 border-primary/50 text-primary">
-              <Sparkles className="w-3 h-3 mr-1" />
-              Full-Stack Data Scientist & AI Founder
+              <Sparkles aria-hidden="true" className="mr-1 h-3 w-3" />
+              Full-Stack Data Scientist &amp; AI Founder
             </Badge>
           </div>
-          <h2 data-reveal className="text-3xl md:text-4xl font-bold mb-4">My Toolkit</h2>
-          <p data-reveal className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <h2 id="about-heading" data-reveal className="mb-4 text-3xl font-bold md:text-4xl">
+            My Toolkit
+          </h2>
+          <p data-reveal className="mx-auto max-w-2xl text-lg text-muted-foreground">
             A comprehensive arsenal for building intelligent, scalable, data-driven solutions.
           </p>
         </Reveal>
 
-        <Reveal className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        {/* Bento: 4 columns, the ML card spans 2x2, the rest span 2x1 */}
+        <Reveal as="ul" className="grid grid-cols-1 gap-4 md:grid-cols-4" role="list">
           {skillCategories.map((category) => {
             const Icon = category.icon
             return (
-              <div
+              <li
                 key={category.title}
                 data-reveal
                 className={cn(
-                  'group relative overflow-hidden rounded-2xl border bg-card/50 backdrop-blur-sm p-6 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-2xl',
-                  category.borderColor,
-                  category.bgGlow,
-                  category.size
+                  'group relative overflow-hidden rounded-2xl border bg-card/50 p-6 backdrop-blur-sm transition-colors',
+                  category.border,
+                  category.size,
                 )}
               >
-                {/* Ambient glow and shimmer */}
-                <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(45,212,191,0.08),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(129,140,248,0.08),transparent_25%)] opacity-70" />
-                <div className="absolute -top-10 -right-10 h-24 w-24 rounded-full bg-primary/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/[0.03] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                {/* Ambient glow (decorative; non-interactive card, so no lift) */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(0,204,168,0.08),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(129,140,248,0.08),transparent_25%)] opacity-70"
+                />
 
-                <div className="relative z-10 h-full flex flex-col">
-                  {/* Header */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={cn(
-                      'animate-float p-2.5 rounded-xl bg-background/80 border border-border/50 shadow-sm',
-                      'group-hover:scale-110 transition-transform duration-300'
-                    )}>
-                      <Icon className={cn('w-5 h-5', category.color)} />
+                <div className="relative z-10 flex h-full flex-col">
+                  <div className="mb-5 flex items-center gap-3">
+                    <div className="animate-float rounded-xl border border-border/50 bg-background/80 p-2.5 shadow-sm">
+                      <Icon aria-hidden="true" className={cn('h-5 w-5', category.accent)} />
                     </div>
-                    <h3 className="font-semibold text-base">{category.title}</h3>
+                    <h3 className="text-base font-semibold">{category.title}</h3>
                   </div>
-                  
-                  {/* Skills */}
-                  <div className="flex-1 space-y-3">
-                    {category.skills.map((skillGroup) => (
-                      <div key={skillGroup.name}>
-                        <p className="text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider">
-                          {skillGroup.name}
+
+                  <div className="flex-1 space-y-4">
+                    {category.skills.map((group) => (
+                      <div key={group.name}>
+                        <p className="mb-2 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+                          {group.name}
                         </p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {skillGroup.items.map((item) => (
-                            <span
+                        <ul className="flex flex-wrap gap-1.5" aria-label={group.name}>
+                          {group.items.map((item) => (
+                            <li
                               key={item}
-                              className="text-xs px-2 py-1 rounded-md bg-background/60 border border-border/40 text-foreground/80"
+                              className="rounded-md border border-border/40 bg-background/60 px-2 py-1 text-xs text-foreground/80"
                             >
                               {item}
-                            </span>
+                            </li>
                           ))}
-                        </div>
+                        </ul>
                       </div>
                     ))}
                   </div>
                 </div>
-              </div>
+              </li>
             )
           })}
         </Reveal>
