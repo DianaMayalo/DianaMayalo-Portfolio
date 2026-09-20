@@ -3,31 +3,43 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+  Design tokens — Diana Mayalo portfolio
+  Identity: teal on navy-slate, Geist Sans + Geist Mono. Dark-only.
+  Hex equivalents and WCAG contrast (against --background) are noted so the
+  values can be audited without a converter.
+
+  --border is decorative (cards, dividers) and is NOT meant to satisfy
+  non-text contrast. Component boundaries that must be perceivable use:
+    --input   form fields + outline buttons    #5C656B  3.4:1
+    --ring    focus ring                        #00CCA8  9.8:1
+    --primary filled buttons / active states    #00CCA8  9.8:1
+*/
 :root {
-  --background: oklch(0.13 0.015 240);
-  --foreground: oklch(0.95 0.01 240);
-  --card: oklch(0.16 0.015 240);
+  --background: oklch(0.13 0.015 240);          /* #03080D */
+  --foreground: oklch(0.95 0.01 240);           /* #E9F0F5  17.5:1 */
+  --card: oklch(0.16 0.015 240);                /* #080E13 */
   --card-foreground: oklch(0.95 0.01 240);
   --popover: oklch(0.16 0.015 240);
   --popover-foreground: oklch(0.95 0.01 240);
-  --primary: oklch(0.75 0.15 175);
-  --primary-foreground: oklch(0.13 0.015 240);
-  --secondary: oklch(0.22 0.015 240);
+  --primary: oklch(0.75 0.15 175);              /* #00CCA8  9.8:1 */
+  --primary-foreground: oklch(0.13 0.015 240);  /* #03080D  9.8:1 on primary */
+  --secondary: oklch(0.22 0.015 240);           /* #141C21 */
   --secondary-foreground: oklch(0.95 0.01 240);
   --muted: oklch(0.22 0.015 240);
-  --muted-foreground: oklch(0.65 0.01 240);
+  --muted-foreground: oklch(0.65 0.01 240);     /* #8A9095  6.2:1 */
   --accent: oklch(0.75 0.15 175);
   --accent-foreground: oklch(0.13 0.015 240);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.28 0.015 240);
-  --input: oklch(0.22 0.015 240);
-  --ring: oklch(0.75 0.15 175);
+  --destructive: oklch(0.396 0.141 25.723);     /* #82181A */
+  --destructive-foreground: oklch(0.637 0.237 25.331); /* #FB2C36 */
+  --border: oklch(0.30 0.015 240);              /* #272F35  decorative */
+  --input: oklch(0.50 0.015 240);               /* #5C656B  3.4:1 */
+  --ring: oklch(0.75 0.15 175);                 /* #00CCA8 */
   --chart-1: oklch(0.75 0.15 175);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
   --radius: 0.75rem;
   --sidebar: oklch(0.16 0.015 240);
   --sidebar-foreground: oklch(0.95 0.01 240);
@@ -35,10 +47,22 @@
   --sidebar-primary-foreground: oklch(0.13 0.015 240);
   --sidebar-accent: oklch(0.22 0.015 240);
   --sidebar-accent-foreground: oklch(0.95 0.01 240);
-  --sidebar-border: oklch(0.28 0.015 240);
+  --sidebar-border: oklch(0.30 0.015 240);
   --sidebar-ring: oklch(0.75 0.15 175);
+
+  /* Layout */
+  --header-height: 4rem;
+
+  /* Motion: one reveal language for every section */
+  --reveal-duration: 800ms;
+  --reveal-distance: 24px;
+  --reveal-stagger: 80ms;
+  --ease-out-quad: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* GSAP power2.out */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
 }
 
+/* The site is dark-only; .dark mirrors :root so shadcn variants resolve. */
 .dark {
   --background: oklch(0.13 0.015 240);
   --foreground: oklch(0.95 0.01 240);
@@ -56,8 +80,8 @@
   --accent-foreground: oklch(0.13 0.015 240);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.28 0.015 240);
-  --input: oklch(0.22 0.015 240);
+  --border: oklch(0.30 0.015 240);
+  --input: oklch(0.50 0.015 240);
   --ring: oklch(0.75 0.15 175);
   --chart-1: oklch(0.75 0.15 175);
   --chart-2: oklch(0.696 0.17 162.48);
@@ -70,13 +94,15 @@
   --sidebar-primary-foreground: oklch(0.13 0.015 240);
   --sidebar-accent: oklch(0.22 0.015 240);
   --sidebar-accent-foreground: oklch(0.95 0.01 240);
-  --sidebar-border: oklch(0.28 0.015 240);
+  --sidebar-border: oklch(0.30 0.015 240);
   --sidebar-ring: oklch(0.75 0.15 175);
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  /* Fonts come from the next/font variables set on <html> in app/layout.tsx */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -113,11 +139,26 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Spacing scale for page rhythm: py-section, pt-header, scroll-mt-header */
+  --spacing-section: clamp(4rem, 8vw, 6rem);
+  --spacing-section-sm: clamp(3rem, 6vw, 4rem);
+  --spacing-header: var(--header-height);
+
+  /* Motion utilities: ease-reveal, plus site-wide transition defaults */
+  --ease-reveal: var(--ease-out-quad);
+  --default-transition-duration: var(--duration-base);
+  --default-transition-timing-function: var(--ease-out-quad);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    /* Anchor targets stop below the sticky header (WCAG 2.4.11, focus not obscured). */
+    scroll-padding-top: calc(var(--header-height) + 1rem);
   }
   body {
     @apply bg-background text-foreground;
@@ -152,44 +193,25 @@
   }
 }
 
-/* Custom animations */
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* Ambient animations (opt-in classes). All are disabled under reduced motion. */
 @keyframes glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(45, 212, 191, 0.5);
-  }
+  0%, 100% { box-shadow: 0 0 20px rgba(0, 204, 168, 0.3); }
+  50%      { box-shadow: 0 0 40px rgba(0, 204, 168, 0.5); }
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+.animate-glow  { animation: glow 2s ease-in-out infinite; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-glow,
+  .animate-float,
+  .animate-ping {
+    animation: none;
   }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-.animate-fade-in {
-  animation: fade-in 0.6s ease-out forwards;
-}
-
-.animate-glow {
-  animation: glow 2s ease-in-out infinite;
-}
-
-.animate-float {
-  animation: float 4s ease-in-out infinite;
 }
