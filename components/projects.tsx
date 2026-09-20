@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { projects } from '@/lib/projects'
 import Image from 'next/image'
+import { Reveal } from '@/components/motion/reveal'
 
 export function Projects() {
   const [hoveredId, setHoveredId] = useState<number | null>(null)
@@ -15,17 +16,18 @@ export function Projects() {
   return (
     <section id="projects" className="py-24 px-6 bg-secondary/30">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl">
+        <Reveal className="mb-16">
+          <h2 data-reveal className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
+          <p data-reveal className="text-muted-foreground text-lg max-w-2xl">
             A selection of data science and AI projects that demonstrate my approach to solving real-world problems.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <Reveal className="grid md:grid-cols-2 gap-6">
           {projects.map((project) => (
             <article
               key={project.id}
+              data-reveal
               className={cn(
                 'group relative rounded-2xl border border-border/50 bg-card overflow-hidden transition-all duration-500',
                 hoveredId === project.id ? 'scale-[1.02] shadow-2xl shadow-primary/10' : 'hover:shadow-lg'
@@ -116,7 +118,7 @@ export function Projects() {
               </div>
             </article>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   )

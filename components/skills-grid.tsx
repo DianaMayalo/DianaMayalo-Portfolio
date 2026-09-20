@@ -16,6 +16,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
+import { Reveal } from '@/components/motion/reveal'
 
 const skillCategories = [
   {
@@ -86,23 +87,26 @@ export function SkillsGrid() {
   return (
     <section id="about" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-16 text-center">
-          <Badge variant="outline" className="mb-4 border-primary/50 text-primary">
-            <Sparkles className="w-3 h-3 mr-1" />
-            Full-Stack Data Scientist & AI Founder
-          </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">My Toolkit</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+        <Reveal className="mb-16 text-center">
+          <div data-reveal>
+            <Badge variant="outline" className="mb-4 border-primary/50 text-primary">
+              <Sparkles className="w-3 h-3 mr-1" />
+              Full-Stack Data Scientist & AI Founder
+            </Badge>
+          </div>
+          <h2 data-reveal className="text-3xl md:text-4xl font-bold mb-4">My Toolkit</h2>
+          <p data-reveal className="text-muted-foreground text-lg max-w-2xl mx-auto">
             A comprehensive arsenal for building intelligent, scalable, data-driven solutions.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          {skillCategories.map((category, index) => {
+        <Reveal className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          {skillCategories.map((category) => {
             const Icon = category.icon
             return (
               <div
                 key={category.title}
+                data-reveal
                 className={cn(
                   'group relative overflow-hidden rounded-2xl border bg-card/50 backdrop-blur-sm p-6 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-2xl',
                   category.borderColor,
@@ -151,7 +155,7 @@ export function SkillsGrid() {
               </div>
             )
           })}
-        </div>
+        </Reveal>
       </div>
     </section>
   )
