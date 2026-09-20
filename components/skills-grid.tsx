@@ -138,7 +138,7 @@ export function SkillsGrid() {
                           {skillGroup.items.map((item) => (
                             <span
                               key={item}
-                              className="text-xs px-2 py-1 rounded-md bg-background/60 border border-border/40 text-foreground/80 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-primary/5 hover:text-foreground"
+                              className="text-xs px-2 py-1 rounded-md bg-background/60 border border-border/40 text-foreground/80"
                             >
                               {item}
                             </span>

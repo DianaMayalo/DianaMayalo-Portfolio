@@ -122,6 +122,34 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Clickable things get a pointer; disabled controls say so. */
+  a[href],
+  button,
+  [role='button'],
+  label[for],
+  select,
+  summary,
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='submit'],
+  input[type='button'] {
+    cursor: pointer;
+  }
+  button:disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+
+  /* Keyboard focus is always visible; mouse focus stays quiet. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
 }
 
 /* Custom animations */

@@ -3,6 +3,7 @@
 import { Github, Linkedin, Mail, Phone, ArrowUpRight, Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { site } from '@/lib/site'
 
 const skills = [
   'Machine Learning',
@@ -112,7 +113,7 @@ export default function CardPage() {
               </Button>
               
               <Button variant="outline" asChild className="w-full" size="lg">
-                <a href="/Diana_Mayalo_CV.pdf" download>
+                <a href={site.cvHref} download>
                   <Download className="mr-2 w-4 h-4" />
                   Download CV
                 </a>

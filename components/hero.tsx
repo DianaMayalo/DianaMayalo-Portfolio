@@ -2,6 +2,7 @@
 
 import { Github, Linkedin, Mail, ArrowDown, Download } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { site } from '@/lib/site'
 
 export function Hero() {
   const scrollToProjects = () => {
@@ -75,7 +76,7 @@ export function Hero() {
           {/* CTA buttons */}
           <div className="flex flex-wrap items-center gap-4 pt-4">
             <Button variant="outline" size="lg" asChild>
-              <a href="/Diana Mayalo CV ..pdf" download>
+              <a href={site.cvHref} download>
                 <Download className="mr-2 w-4 h-4" />
                 Download CV
               </a>
