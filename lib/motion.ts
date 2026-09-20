@@ -17,12 +17,22 @@ export const REVEAL = {
 /** gsap.matchMedia() condition: animate only when the user has not asked for less motion. */
 export const MOTION_OK = '(prefers-reduced-motion: no-preference)'
 
+/** A wrapper starts revealing once its top is above this fraction of the viewport height. */
+export const REVEAL_START_RATIO = 0.85
+
 /**
- * Where a section starts revealing: when its top clears the bottom 15% of the
- * viewport. `clamp()` keeps the start inside the scrollable range so elements
- * near the page bottom (footer) still trigger instead of being unreachable.
+ * ScrollTrigger start for wrappers below the fold. `clamp()` keeps the start
+ * inside the scrollable range so elements near the page bottom (footer) still
+ * trigger instead of being unreachable. Note: on a page with no scroll range a
+ * clamped start never fires, so <Reveal> plays in-view wrappers directly.
  */
-export const REVEAL_START = 'clamp(top 85%)'
+export const REVEAL_START = `clamp(top ${REVEAL_START_RATIO * 100}%)`
+
+/** True when the element is already inside the reveal zone, or the page cannot scroll at all. */
+export function isInRevealZone(el: Element): boolean {
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+  return maxScroll <= 0 || el.getBoundingClientRect().top < window.innerHeight * REVEAL_START_RATIO
+}
 
 let registered = false
 

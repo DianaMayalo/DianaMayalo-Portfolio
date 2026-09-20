@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, type ComponentPropsWithoutRef, type ElementType } from 'react'
-import { gsap, useGSAP, registerGsap, revealFrom, MOTION_OK, REVEAL_START } from '@/lib/motion'
+import { gsap, useGSAP, registerGsap, revealFrom, isInRevealZone, MOTION_OK, REVEAL_START } from '@/lib/motion'
 
 type RevealProps<T extends ElementType> = {
   /** Element to render. Defaults to a div. */
@@ -41,12 +41,9 @@ export function Reveal<T extends ElementType = 'div'>({
       mm.add(MOTION_OK, () => {
         const marked = stagger ? root.querySelectorAll<HTMLElement>('[data-reveal]') : []
         const targets: Element[] | Element = marked.length ? Array.from(marked) : root
-        gsap.from(
-          targets,
-          revealFrom({
-            scrollTrigger: { trigger: root, start, once: true },
-          }),
-        )
+        // Already on screen (or the page cannot scroll): play now. Otherwise wait for scroll.
+        const vars = isInRevealZone(root) ? {} : { scrollTrigger: { trigger: root, start, once: true } }
+        gsap.from(targets, revealFrom(vars))
       })
       return () => mm.revert()
     },
