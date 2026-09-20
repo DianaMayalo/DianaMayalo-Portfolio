@@ -47,7 +47,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
   return (
     <>
       <SiteHeader />
-      <main id="main" className="px-6 py-section-sm">
+      <main id="main" tabIndex={-1} className="px-6 py-section-sm outline-none">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-10">
           {/* Back navigation: same ghost button pattern as /card */}
           <Reveal stagger={false}>

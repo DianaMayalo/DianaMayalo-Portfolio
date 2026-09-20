@@ -9,7 +9,8 @@ export default function Home() {
   return (
     <>
       <SiteHeader />
-      <main id="main">
+      {/* tabIndex -1 lets the skip link move focus here; no ring on a landmark */}
+      <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
         <SkillsGrid />
         <Projects />

@@ -25,7 +25,7 @@ const socials = [
  */
 export default function CardPage() {
   return (
-    <main id="main" className="flex min-h-svh flex-col items-center justify-center bg-background p-6">
+    <main id="main" tabIndex={-1} className="flex min-h-svh flex-col items-center justify-center bg-background p-6 outline-none">
       <div className="w-full max-w-lg">
         <Reveal stagger={false} className="mb-4">
           <Button variant="ghost" asChild className="-ml-3 w-fit text-muted-foreground hover:text-foreground">
