@@ -18,8 +18,8 @@ const skillCategories: SkillCategory[] = [
   {
     icon: Brain,
     title: 'Machine Learning & AI',
-    accent: 'text-cyan-400',
-    border: 'border-cyan-500/30 hover:border-cyan-500/60',
+    accent: 'text-cyan-700 dark:text-cyan-400',
+    border: 'border-cyan-700/30 dark:border-cyan-500/30 hover:border-cyan-700/60 dark:hover:border-cyan-500/60',
     size: 'md:col-span-2 md:row-span-2',
     skills: [
       { name: 'Tools & Frameworks', items: ['Python', 'Scikit-learn', 'TensorFlow', 'Keras'] },
@@ -31,8 +31,8 @@ const skillCategories: SkillCategory[] = [
   {
     icon: Database,
     title: 'Data Engineering',
-    accent: 'text-emerald-400',
-    border: 'border-emerald-500/30 hover:border-emerald-500/60',
+    accent: 'text-emerald-700 dark:text-emerald-400',
+    border: 'border-emerald-700/30 dark:border-emerald-500/30 hover:border-emerald-700/60 dark:hover:border-emerald-500/60',
     size: 'md:col-span-2',
     skills: [
       { name: 'Databases & Tools', items: ['PostgreSQL', 'MySQL', 'Pandas', 'NumPy'] },
@@ -42,8 +42,8 @@ const skillCategories: SkillCategory[] = [
   {
     icon: Cloud,
     title: 'MLOps & DevOps',
-    accent: 'text-blue-400',
-    border: 'border-blue-500/30 hover:border-blue-500/60',
+    accent: 'text-blue-700 dark:text-blue-400',
+    border: 'border-blue-700/30 dark:border-blue-500/30 hover:border-blue-700/60 dark:hover:border-blue-500/60',
     size: 'md:col-span-2',
     skills: [
       { name: 'Infrastructure', items: ['AWS (EC2, S3, Lambda)', 'Google Earth Engine', 'Docker', 'GitHub Actions', 'Linux', 'Bash'] },
@@ -53,8 +53,8 @@ const skillCategories: SkillCategory[] = [
   {
     icon: BarChart3,
     title: 'Analytics & BI',
-    accent: 'text-amber-400',
-    border: 'border-amber-500/30 hover:border-amber-500/60',
+    accent: 'text-amber-700 dark:text-amber-400',
+    border: 'border-amber-700/30 dark:border-amber-500/30 hover:border-amber-700/60 dark:hover:border-amber-500/60',
     size: 'md:col-span-2',
     skills: [
       { name: 'Tools', items: ['Power BI', 'Tableau', 'Plotly', 'Advanced Excel', 'SPSS', 'Matplotlib/Seaborn'] },
@@ -64,8 +64,8 @@ const skillCategories: SkillCategory[] = [
   {
     icon: Code2,
     title: 'Engineering & Strategy',
-    accent: 'text-rose-400',
-    border: 'border-rose-500/30 hover:border-rose-500/60',
+    accent: 'text-rose-700 dark:text-rose-400',
+    border: 'border-rose-700/30 dark:border-rose-500/30 hover:border-rose-700/60 dark:hover:border-rose-500/60',
     size: 'md:col-span-2',
     skills: [
       { name: 'Engineering', items: ['Git', 'FastAPI', 'Flask', 'OOP', 'RESTful API Design'] },
