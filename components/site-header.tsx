@@ -181,17 +181,17 @@ export function SiteHeader() {
               <div className="flex items-center gap-2 pt-2">
                 <ThemeToggle />
                 <AccessibilityPanel />
-                <Button asChild variant="ghost" size="icon" aria-label="GitHub">
+                <Button asChild variant="ghost" size="icon" className="focus-visible:ring-2 focus-visible:ring-ring" aria-label="GitHub">
                   <a href={site.github} target="_blank" rel="noopener noreferrer">
                     <Github aria-hidden="true" />
                   </a>
                 </Button>
-                <Button asChild variant="ghost" size="icon" aria-label="LinkedIn">
+                <Button asChild variant="ghost" size="icon" className="focus-visible:ring-2 focus-visible:ring-ring" aria-label="LinkedIn">
                   <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
                     <Linkedin aria-hidden="true" />
                   </a>
                 </Button>
-                <Button asChild variant="ghost" size="icon" aria-label="Email">
+                <Button asChild variant="ghost" size="icon" className="focus-visible:ring-2 focus-visible:ring-ring" aria-label="Email">
                   <a href={`mailto:${site.email}`}>
                     <Mail aria-hidden="true" />
                   </a>

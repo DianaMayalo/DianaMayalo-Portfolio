@@ -115,7 +115,7 @@ export function SkillsGrid() {
 
                 <div className="relative z-10 flex h-full flex-col">
                   <div className="mb-5 flex items-center gap-3">
-                    <div className="animate-float rounded-xl border border-border/50 bg-background/80 p-2.5 shadow-sm">
+                    <div className="animate-float rounded-xl border-border/50 bg-background/80 p-2.5 shadow-sm transition-colors group-hover:border-primary/50">
                       <Icon aria-hidden="true" className={cn('h-5 w-5', category.accent)} />
                     </div>
                     <h3 className="text-base font-semibold">{category.title}</h3>

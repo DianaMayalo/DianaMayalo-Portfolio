@@ -17,6 +17,8 @@ export function Contact() {
     message: '',
   })
 
+  const [sending, setSending] = useState(false)
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Opens the visitor's email client with the message pre-filled.
@@ -24,6 +26,9 @@ export function Contact() {
     const body = encodeURIComponent(
       `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
     )
+    // The handoff to the mail client can take a moment to become visible, so
+    // acknowledge the click immediately and block a second submit.
+    setSending(true)
     window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`
   }
 
@@ -152,9 +157,9 @@ export function Contact() {
               </div>
 
               <div className="space-y-3">
-                <Button type="submit" size="lg" className="w-full">
+                <Button type="submit" size="lg" className="w-full" disabled={sending}>
                   <Send aria-hidden="true" />
-                  Send Message
+                  {sending ? 'Opening your email app…' : 'Send Message'}
                 </Button>
                 <p className="text-center text-xs text-muted-foreground" aria-live="polite">
                   Opens your email app with the message pre-filled.
