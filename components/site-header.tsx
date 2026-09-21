@@ -116,7 +116,6 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
-                <AccessibilityPanel />
           <AccessibilityPanel />
           <Button asChild size="sm" variant="outline">
             <a href={site.cvHref} download>
@@ -182,7 +181,6 @@ export function SiteHeader() {
               <div className="flex items-center gap-2 pt-2">
                 <ThemeToggle />
                 <AccessibilityPanel />
-          <AccessibilityPanel />
                 <Button asChild variant="ghost" size="icon" aria-label="GitHub">
                   <a href={site.github} target="_blank" rel="noopener noreferrer">
                     <Github aria-hidden="true" />
