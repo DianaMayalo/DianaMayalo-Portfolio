@@ -17,6 +17,7 @@ import {
 import { cn } from '@/lib/utils'
 import { site, navItems, sectionIds } from '@/lib/site'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { AccessibilityPanel } from '@/components/accessibility-panel'
 
 /**
  * Which home-page section currently covers the viewport centre. Returns null
@@ -115,6 +116,8 @@ export function SiteHeader() {
 
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
+                <AccessibilityPanel />
+          <AccessibilityPanel />
           <Button asChild size="sm" variant="outline">
             <a href={site.cvHref} download>
               <Download aria-hidden="true" />
@@ -178,6 +181,8 @@ export function SiteHeader() {
               </Button>
               <div className="flex items-center gap-2 pt-2">
                 <ThemeToggle />
+                <AccessibilityPanel />
+          <AccessibilityPanel />
                 <Button asChild variant="ghost" size="icon" aria-label="GitHub">
                   <a href={site.github} target="_blank" rel="noopener noreferrer">
                     <Github aria-hidden="true" />

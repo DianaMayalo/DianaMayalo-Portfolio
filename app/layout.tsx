@@ -41,6 +41,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
       <body className="bg-background text-foreground font-sans antialiased">
+
+        <script dangerouslySetInnerHTML={{ __html: `
+          try {
+            var prefs = JSON.parse(localStorage.getItem('a11y-prefs') || '{}');
+            if (prefs.textSize) document.documentElement.setAttribute('data-text-size', prefs.textSize);
+            if (prefs.highContrast) document.documentElement.setAttribute('data-high-contrast', 'true');
+            if (prefs.reduceMotion) document.documentElement.setAttribute('data-reduce-motion', 'true');
+            if (prefs.focusIndicators) document.documentElement.setAttribute('data-strong-focus', 'true');
+          } catch (e) {}
+        `}} />
+
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

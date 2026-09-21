@@ -212,3 +212,34 @@
     animation: none;
   }
 }
+
+/* Accessibility Preferences */
+:root[data-text-size="small"] { font-size: 14px; }
+:root[data-text-size="normal"] { font-size: 16px; }
+:root[data-text-size="large"] { font-size: 18px; }
+:root[data-text-size="xlarge"] { font-size: 20px; }
+
+:root[data-high-contrast="true"] {
+  --foreground: oklch(0 0 0);
+  --background: oklch(1 0 0);
+  --muted-foreground: oklch(0 0 0);
+  --border: oklch(0 0 0);
+}
+.dark:root[data-high-contrast="true"] {
+  --foreground: oklch(1 0 0);
+  --background: oklch(0 0 0);
+  --muted-foreground: oklch(1 0 0);
+  --border: oklch(1 0 0);
+}
+
+:root[data-strong-focus="true"] *:focus-visible {
+  outline: 4px solid var(--ring) !important;
+  outline-offset: 4px !important;
+}
+
+:root[data-reduce-motion="true"] *, :root[data-reduce-motion="true"] *::before, :root[data-reduce-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
