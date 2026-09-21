@@ -7,7 +7,8 @@ import { site } from '@/lib/site'
 import { gsap, useGSAP, registerGsap, revealFrom, MOTION_OK } from '@/lib/motion'
 
 export function Hero() {
-  const scope = useRef<HTMLElement>(null)
+  // HTMLElement, not HTMLDivElement: this ref lands on a <section>.
+  const scope = useRef<HTMLElement | null>(null)
 
   // Load timeline: background glow fades up, then each block rises in order.
   // Under prefers-reduced-motion the section simply renders in its final state.

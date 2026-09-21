@@ -251,13 +251,14 @@
 .animate-glow  { animation: glow 2s ease-in-out infinite; }
 .animate-float { animation: float 4s ease-in-out infinite; }
 
+/*
+  Ambient animations are also stopped by the blanket reduced-motion rules
+  further down, which key off `--reduce-motion` and therefore cover both the OS
+  setting and the in-app switch. Only `scroll-behavior` is set here, because it
+  is per-element rather than animation-based.
+*/
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .animate-glow,
-  .animate-float,
-  .animate-ping {
-    animation: none;
-  }
 }
 
 /*
@@ -323,13 +324,42 @@
   --ring: oklch(0.85 0.13 175);
 }
 
-/* High contrast also flattens decorative washes that assume a tinted surface. */
-:root[data-high-contrast='true'] .bg-card\/50,
-:root[data-high-contrast='true'] .bg-card\/40,
-:root[data-high-contrast='true'] .bg-background\/60,
-:root[data-high-contrast='true'] .bg-secondary\/30,
-:root[data-high-contrast='true'] .bg-secondary\/80 {
+/*
+  High contrast also flattens surfaces that bypass the tokens.
+
+  The first group is the translucent Tailwind washes (`bg-card/50` and friends),
+  which would otherwise composite to a grey that sits between the new black text
+  and white page. Matching on the class attribute rather than the escaped class
+  name keeps this readable and catches every opacity step at once.
+
+  The second group is the JS-set colours in the skills grid: those accent and
+  border colours are per-card data (see components/skills-grid.tsx) and are
+  emitted as inline `style` by the Tailwind compiler, so they cannot be
+  overridden by a utility class. Under high contrast the colour is dropped
+  entirely — the card keeps its border and the accessible text colour — which is
+  the point of the setting.
+*/
+[data-high-contrast='true'] [class*='bg-card\\/'],
+[data-high-contrast='true'] [class*='bg-background\\/'],
+[data-high-contrast='true'] [class*='bg-secondary\\/'],
+[data-high-contrast='true'] [class*='bg-primary\\/'] {
   background-color: var(--card) !important;
+}
+
+[data-high-contrast='true'] [class*='text-cyan-'],
+[data-high-contrast='true'] [class*='text-emerald-'],
+[data-high-contrast='true'] [class*='text-blue-'],
+[data-high-contrast='true'] [class*='text-amber-'],
+[data-high-contrast='true'] [class*='text-rose-'] {
+  color: var(--foreground) !important;
+}
+
+/* Decorative gradients and glows only lower contrast; remove them. */
+[data-high-contrast='true'] [class*='bg-gradient-'],
+[data-high-contrast='true'] [class*='bg-[radial-gradient'],
+[data-high-contrast='true'] [class*='blur-'] {
+  background-image: none !important;
+  filter: none !important;
 }
 
 /* Opt-in thicker focus ring. Base :focus-visible already draws 2px/offset 2. */
@@ -339,9 +369,9 @@
 }
 
 /*
-  Reduce motion: applies to CSS animations *and* transitions. GSAP reveals are
-  handled separately — they key off this same attribute via REDUCE_MOTION in
-  lib/motion.ts, because a CSS-only rule cannot stop a JS tween.
+  Reduce motion: applies to CSS animations *and* transitions, site-wide. GSAP
+  reveals are handled separately — a CSS rule cannot stop a JS tween, so
+  lib/motion.ts queries the same `--reduce-motion` value through matchMedia.
 */
 :root[data-reduce-motion='true'] *,
 :root[data-reduce-motion='true'] *::before,
