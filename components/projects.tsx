@@ -32,7 +32,7 @@ export function Projects() {
                   <div className="relative h-48 overflow-hidden">
                     <Image
                       src={project.image}
-                      alt=""
+                      alt={`Screenshot of ${project.title} project`}
                       fill
                       sizes="(min-width: 768px) 50vw, 100vw"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
