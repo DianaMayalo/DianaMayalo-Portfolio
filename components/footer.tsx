@@ -26,13 +26,13 @@ export function Footer() {
         </nav>
 
         <div className="flex items-center gap-4 text-muted-foreground">
-          <a href={site.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="transition-colors hover:text-primary">
+          <a href={site.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="transition-colors hover:text-primary p-2">
             <Github aria-hidden="true" className="h-5 w-5" />
           </a>
-          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="transition-colors hover:text-primary">
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="transition-colors hover:text-primary p-2">
             <Linkedin aria-hidden="true" className="h-5 w-5" />
           </a>
-          <a href={`mailto:${site.email}`} aria-label="Email" className="transition-colors hover:text-primary">
+          <a href={`mailto:${site.email}`} aria-label="Email" className="transition-colors hover:text-primary p-2">
             <Mail aria-hidden="true" className="h-5 w-5" />
           </a>
         </div>
