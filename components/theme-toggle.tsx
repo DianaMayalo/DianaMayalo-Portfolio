@@ -5,6 +5,7 @@ import { Moon, Sun, Monitor, Check } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
+import { ScrollTrigger } from '@/lib/motion'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -36,6 +37,13 @@ export function ThemeToggle() {
   React.useEffect(() => {
     setMounted(true)
   }, [])
+
+  // A theme change only repaints — it moves nothing — so ScrollTrigger's cached
+  // positions stay valid. Refresh once things have settled anyway, because the
+  // swap can change font metrics and therefore trigger offsets.
+  React.useEffect(() => {
+    ScrollTrigger.refresh()
+  }, [resolvedTheme])
 
   // Before hydration the stored theme is unknown. Render a placeholder of the
   // same size (no layout shift) — the pre-paint script in app/layout.tsx has

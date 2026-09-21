@@ -15,15 +15,26 @@ export const REVEAL = {
 } as const
 
 /**
- * gsap.matchMedia() condition for *running* reveals.
+ * The query gsap.matchMedia() listens on: animate when motion is welcome.
  *
- * `no-preference` alone only covers the OS setting, so a visitor who turns on
- * "Reduce Motion" in the accessibility panel would still see GSAP tweens.
- * The second clause excludes that case: the panel sets
- * `data-reduce-motion="true"` on <html> (see app/globals.css), and matchMedia
- * re-evaluates the query whenever that attribute changes.
+ * The second clause is the whole trick. `prefers-reduced-motion` alone only
+ * knows the OS setting, so a visitor who switches "Reduce Motion" on in the
+ * accessibility panel would still see every GSAP reveal. `--reduce-motion` is a
+ * registered `<number>` custom property defined in app/globals.css that folds
+ * both signals into one value:
+ *
+ *   0 — motion welcome (default, and what the OS reports by default)
+ *   1 — suppress motion, set by `[data-reduce-motion='true']` or by the
+ *       `prefers-reduced-motion: reduce` block
+ *
+ * Reading it as a media feature means GSAP's matchMedia reacts to the in-app
+ * switch too, and reverts timelines that are already running. Note this works
+ * because `--reduce-motion` is *not* defined in terms of prefers-reduced-motion;
+ * a query cannot depend on the condition it is embedded in.
+ *
+ * Keep this string in sync with the `@property` block in app/globals.css.
  */
-export const MOTION_OK = '(prefers-reduced-motion: no-preference) and (not (html[data-reduce-motion="true"] *))'
+export const MOTION_OK = '(prefers-reduced-motion: no-preference) and (--reduce-motion: 0)'
 
 /** A wrapper starts revealing once its top is above this fraction of the viewport height. */
 export const REVEAL_START_RATIO = 0.85

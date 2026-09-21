@@ -4,6 +4,44 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
+  ── Motion preference ──────────────────────
+  `--reduce-motion` is the single boolean the whole motion layer keys off:
+
+    • 0 — animation is welcome (the default, and always the OS default).
+    • 1 — suppress motion. Set by `[data-reduce-motion='true']` below, which the
+          accessibility panel applies *and* which the stylesheet applies
+          automatically from `prefers-reduced-motion`.
+
+  GSAP reads it through `matchMedia('(prefers-reduced-motion: no-preference)')
+  and (--reduce-motion: 0)'` in lib/motion.ts. A custom property is not
+  `prefers-reduced-motion`, so querying it does not itself depend on the OS
+  setting, and changing it where it is registered fires `change` — that is what
+  lets the in-app switch stop timelines that are already running. (Selector
+  queries such as `(html:not(.dark))` are NOT valid media features and fail to
+  parse, so this is the only reliable channel.)
+*/
+@property --reduce-motion {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+:root {
+  --reduce-motion: 0;
+}
+
+:root[data-reduce-motion='true'] {
+  --reduce-motion: 1;
+}
+
+/* No in-app preference set: mirror the OS setting. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-reduce-motion]) {
+    --reduce-motion: 1;
+  }
+}
+
+/*
   Design tokens — Diana Mayalo portfolio
   Identity: teal on navy-slate, Geist Sans + Geist Mono.
 
