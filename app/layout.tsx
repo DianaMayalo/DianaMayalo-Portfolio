@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { BackToTop } from '@/components/back-to-top'
+import { ScrollProgress } from '@/components/scroll-progress'
 import './globals.css'
 
 const geistSans = Geist({
@@ -53,6 +55,8 @@ export default function RootLayout({
         `}} />
 
         {children}
+        <BackToTop />
+        <ScrollProgress />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
