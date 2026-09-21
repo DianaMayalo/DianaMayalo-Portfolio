@@ -381,6 +381,36 @@
   transition-duration: 0.01ms !important;
 }
 
+/*
+  Movement, not just duration. Collapsing the duration alone still leaves the
+  element jumping straight to its offset, so the transform-like properties are
+  reset as well.
+
+  These must live in rules with DIFFERENT selectors. Written in one rule, or in
+  two rules sharing a selector, Lightning CSS treats `transform`/`translate`/
+  `scale` as one legacy transform declaration and collapses the block to
+  `transform: scale(1)` — which silently drops the `translate` reset and
+  reinstates the movement. The `:not(#\0)` suffix on the translate rule is a
+  no-op that matches everything but keeps the selector distinct, so the
+  minifier cannot merge the two.
+
+  Both the legacy `transform` and the individual properties are reset because
+  Tailwind v4 emits them separately: `translate-x-1.5` compiles to `translate:`,
+  and `motion-reduce:transform-none` would not cancel it.
+*/
+:root[data-reduce-motion='true'] *:not(#\0),
+:root[data-reduce-motion='true'] *::before,
+:root[data-reduce-motion='true'] *::after {
+  translate: none !important;
+}
+
+:root[data-reduce-motion='true'] *,
+:root[data-reduce-motion='true'] *::before,
+:root[data-reduce-motion='true'] *::after {
+  transform: none !important;
+  scale: none !important;
+}
+
 :root[data-reduce-motion='true'] {
   scroll-behavior: auto !important;
 }
@@ -391,12 +421,20 @@
   `prefers-contrast: more` at the stylesheet level.
 */
 @media (prefers-reduced-motion: reduce) {
+  :root:not([data-reduce-motion]) *:not(#\0),
+  :root:not([data-reduce-motion]) *::before,
+  :root:not([data-reduce-motion]) *::after {
+    translate: none !important;
+  }
+
   :root:not([data-reduce-motion]) *,
   :root:not([data-reduce-motion]) *::before,
   :root:not([data-reduce-motion]) *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transform: none !important;
+    scale: none !important;
   }
 }
 

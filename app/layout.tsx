@@ -66,7 +66,23 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-background text-foreground font-sans antialiased">
+      {/**
+       * `suppressHydrationWarning` is required, not a workaround. Browser
+       * extensions (Grammarly, password managers, translators) inject attributes
+       * into <body> before React hydrates — `data-gr-ext-installed`,
+       * `cz-shortcut-listen`, `data-new-gr-c-s-check-loaded` and similar. React
+       * sees a server tree that no longer matches the DOM and warns. The
+       * injected attributes are outside our control and are expected, so the
+       * mismatch is acknowledged here rather than chased.
+       *
+       * This only silences the warning for this element's own attributes and
+       * text — it does NOT suppress mismatches anywhere else in the tree, and
+       * it does not affect rendering: the page stays fully server-rendered.
+       */}
+      <body
+        suppressHydrationWarning
+        className="bg-background text-foreground font-sans antialiased"
+      >
         <ThemeProvider defaultTheme="dark" enableSystem disableTransitionOnChange>
           {children}
           <BackToTop />

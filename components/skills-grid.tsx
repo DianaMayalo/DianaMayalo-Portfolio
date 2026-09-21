@@ -102,21 +102,43 @@ export function SkillsGrid() {
                 key={category.title}
                 data-reveal
                 className={cn(
-                  'group relative overflow-hidden rounded-2xl border bg-card/50 p-6 backdrop-blur-sm transition-colors',
+                  // transition-[…] rather than transition-colors: the hover also
+                  // moves the card and deepens its shadow, and animating only
+                  // the colour would leave those two snapping.
+                  'group relative overflow-hidden rounded-2xl border bg-card/50 p-6 backdrop-blur-sm transition-[border-color,box-shadow,translate] duration-300 ease-out hover:-translate-y-0.5 hover:bg-card hover:shadow-lg hover:shadow-primary/10 motion-reduce:transform-none',
                   category.border,
                   category.size,
                 )}
               >
-                {/* Ambient glow (decorative; non-interactive card, so no lift) */}
+                {/**
+                 * Ambient glow. Decorative, so it is aria-hidden and
+                 * pointer-events-none. It fades up on hover via the `group` on
+                 * the <li> above.
+                 *
+                 * The colours are baked rgba rather than token-based because a
+                 * Tailwind arbitrary value cannot reference an `oklch()` token
+                 * without a colour-mix; they are tints over the card, not text,
+                 * so they sit at low alpha where they read the same in either
+                 * theme. `dark:` drops the alpha rather than changing hue, so
+                 * the light-mode card is not washed out.
+                 */}
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(0,204,168,0.08),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(129,140,248,0.08),transparent_25%)] opacity-70"
+                  className="pointer-events-none absolute inset-0 rounded-2xl bg-[radial-gradient(circle_at_top_left,rgba(0,204,168,0.10),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(129,140,248,0.10),transparent_30%)] opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 group-focus-within:opacity-100 dark:opacity-60 dark:group-hover:opacity-100"
                 />
 
                 <div className="relative z-10 flex h-full flex-col">
                   <div className="mb-5 flex items-center gap-3">
-                    <div className="animate-float rounded-xl border-border/50 bg-background/80 p-2.5 shadow-sm transition-colors group-hover:border-primary/50">
-                      <Icon aria-hidden="true" className={cn('h-5 w-5', category.accent)} />
+                    {/* Each card floats forever; hover only tints the border and
+                        the icon, so the float stays the single motion cue. */}
+                    <div className="animate-float rounded-xl border-border/50 bg-background/80 p-2.5 shadow-sm transition-[border-color,color,box-shadow] duration-300 ease-out group-hover:border-primary/50 group-hover:shadow-sm">
+                      <Icon
+                        aria-hidden="true"
+                        className={cn(
+                          'h-5 w-5 transition-transform duration-300 ease-out group-hover:scale-110 motion-reduce:transform-none',
+                          category.accent,
+                        )}
+                      />
                     </div>
                     <h3 className="text-base font-semibold">{category.title}</h3>
                   </div>
