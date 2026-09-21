@@ -105,7 +105,12 @@ export function SkillsGrid() {
                   // transition-[…] rather than transition-colors: the hover also
                   // moves the card and deepens its shadow, and animating only
                   // the colour would leave those two snapping.
-                  'group relative overflow-hidden rounded-2xl border bg-card/50 p-6 backdrop-blur-sm transition-[border-color,box-shadow,translate] duration-300 ease-out hover:-translate-y-0.5 hover:bg-card hover:shadow-lg hover:shadow-primary/10 motion-reduce:transform-none',
+                  // motion-reduce:translate-none, not transform-none: Tailwind
+                  // compiles -translate-y-0.5 to the `translate:` property, which
+                  // a `transform:` reset does not cancel (verified in the built
+                  // CSS). The blanket reduced-motion rule in globals.css is the
+                  // real guard; this keeps the utility honest on its own.
+                  'group relative overflow-hidden rounded-2xl border bg-card/50 p-6 backdrop-blur-sm transition-[border-color,box-shadow,translate] duration-300 ease-out hover:-translate-y-0.5 hover:bg-card hover:shadow-lg hover:shadow-primary/10 motion-reduce:translate-none',
                   category.border,
                   category.size,
                 )}
@@ -135,7 +140,9 @@ export function SkillsGrid() {
                       <Icon
                         aria-hidden="true"
                         className={cn(
-                          'h-5 w-5 transition-transform duration-300 ease-out group-hover:scale-110 motion-reduce:transform-none',
+                          // scale-110 sets `scale:`; a `transform:` reset would
+                          // not cancel it. scale-100 is the neutral value.
+                          'h-5 w-5 transition-[scale,transform] duration-300 ease-out group-hover:scale-110 motion-reduce:scale-100',
                           category.accent,
                         )}
                       />
