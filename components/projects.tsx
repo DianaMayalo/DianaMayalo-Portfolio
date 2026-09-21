@@ -28,7 +28,7 @@ export function Projects() {
                   The whole card is clickable via the stretched title link
                   (after:inset-0). Secondary links sit above it with z-10.
                 */}
-                <article className="group relative isolate flex w-full flex-col overflow-hidden rounded-2xl border border-border/50 bg-card transition-[border-color,box-shadow,translate] hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 focus-within:border-primary/60">
+                <article className="group relative isolate flex w-full flex-col overflow-hidden rounded-2xl border border-border/50 bg-card transition-[border-color,box-shadow,translate] hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 focus-within:border-primary/60 focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
                   <div className="relative h-48 overflow-hidden">
                     <Image
                       src={project.image}
