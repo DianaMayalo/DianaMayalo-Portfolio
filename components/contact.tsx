@@ -116,7 +116,7 @@ export function Contact() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Your name"
-                    required aria-required="true" aria-required aria-required="true"="true"
+                    required
                     className="h-12 px-4"
                   />
                 </div>
@@ -131,7 +131,7 @@ export function Contact() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="your.email@example.com"
-                    required aria-required="true" aria-required aria-required="true"="true"
+                    required
                     className="h-12 px-4"
                   />
                 </div>
@@ -145,7 +145,7 @@ export function Contact() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Your message"
-                  required aria-required="true" aria-required aria-required="true"="true"
+                  required
                   rows={6}
                   className="min-h-40 resize-none px-4 py-3"
                 />
