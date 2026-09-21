@@ -14,8 +14,16 @@ export const REVEAL = {
   stagger: 0.08,
 } as const
 
-/** gsap.matchMedia() condition: animate only when the user has not asked for less motion. */
-export const MOTION_OK = '(prefers-reduced-motion: no-preference)'
+/**
+ * gsap.matchMedia() condition for *running* reveals.
+ *
+ * `no-preference` alone only covers the OS setting, so a visitor who turns on
+ * "Reduce Motion" in the accessibility panel would still see GSAP tweens.
+ * The second clause excludes that case: the panel sets
+ * `data-reduce-motion="true"` on <html> (see app/globals.css), and matchMedia
+ * re-evaluates the query whenever that attribute changes.
+ */
+export const MOTION_OK = '(prefers-reduced-motion: no-preference) and (not (html[data-reduce-motion="true"] *))'
 
 /** A wrapper starts revealing once its top is above this fraction of the viewport height. */
 export const REVEAL_START_RATIO = 0.85
@@ -32,6 +40,31 @@ export const REVEAL_START = `clamp(top ${REVEAL_START_RATIO * 100}%)`
 export function isInRevealZone(el: Element): boolean {
   const maxScroll = document.documentElement.scrollHeight - window.innerHeight
   return maxScroll <= 0 || el.getBoundingClientRect().top < window.innerHeight * REVEAL_START_RATIO
+}
+
+/**
+ * True when motion should be suppressed right now: either the OS preference or
+ * the in-app "Reduce Motion" switch. Read at call time, not at module load, so
+ * `gsap.matchMedia()` re-evaluates it after the attribute changes.
+ */
+export function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined') return false
+  if (document.documentElement.getAttribute('data-reduce-motion') === 'true') return true
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+/**
+ * Neutralise every in-flight GSAP tween and reset ScrollTrigger.
+ *
+ * Called when the a11y panel turns "Reduce Motion" on mid-session: GSAP's
+ * `matchMedia` reverts animations it created, but this also catches anything
+ * already running and guarantees elements are left in their final, visible
+ * state rather than frozen mid-fade (WCAG 2.3.3 — no content trapped invisible).
+ */
+export function killMotion() {
+  if (typeof window === 'undefined') return
+  gsap.globalTimeline.getChildren(true, true, true).forEach((tween) => tween.progress(1))
+  ScrollTrigger.refresh()
 }
 
 let registered = false

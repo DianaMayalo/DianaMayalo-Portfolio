@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { Moon, Sun, Monitor } from 'lucide-react'
+import { Moon, Sun, Monitor, Check } from 'lucide-react'
 import { useTheme } from 'next-themes'
 
 import { Button } from '@/components/ui/button'
@@ -12,38 +12,81 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
+/** Selectable modes, in cycle order: light → dark → system. */
+const MODES = ['light', 'dark', 'system'] as const
+type Mode = (typeof MODES)[number]
+
+/** The icon reflects the stored *preference* (system shows a monitor). */
+const MODE_ICON: Record<Mode, typeof Sun> = {
+  light: Sun,
+  dark: Moon,
+  system: Monitor,
+}
+
+const MODE_LABEL: Record<Mode, string> = {
+  light: 'Light',
+  dark: 'Dark',
+  system: 'System',
+}
+
 export function ThemeToggle() {
-  const { setTheme, theme } = useTheme()
+  const { setTheme, theme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
     setMounted(true)
   }, [])
 
+  // Before hydration the stored theme is unknown. Render a placeholder of the
+  // same size (no layout shift) — the pre-paint script in app/layout.tsx has
+  // already applied the correct colours, so nothing flashes.
   if (!mounted) {
-    return <Button variant="outline" size="icon" className="w-9 h-9" aria-label="Toggle theme"></Button>
+    return (
+      <Button variant="outline" size="icon" aria-label="Theme">
+        <Sun aria-hidden="true" />
+      </Button>
+    )
   }
+
+  const mode: Mode = (MODES as readonly string[]).includes(theme ?? '') ? (theme as Mode) : 'system'
+  const Icon = MODE_ICON[mode]
+  const nextMode = MODES[(MODES.indexOf(mode) + 1) % MODES.length]
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="w-9 h-9" aria-label={`Toggle theme, current mode: ${theme}`}>
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label={`Theme: ${MODE_LABEL[mode]} (currently ${resolvedTheme ?? 'dark'}). Activate to switch to ${MODE_LABEL[nextMode]}.`}
+          onClick={(event) => {
+            // Modifier-clicks and the keyboard menu key still open the list;
+            // a plain click cycles the mode directly (light → dark → system).
+            if (event.altKey || event.metaKey || event.ctrlKey || event.shiftKey) return
+            event.preventDefault()
+            setTheme(nextMode)
+          }}
+        >
+          <Icon aria-hidden="true" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme('light')}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>
-          System
-        </DropdownMenuItem>
+        {MODES.map((value) => (
+          <DropdownMenuItem
+            key={value}
+            role="menuitemradio"
+            aria-checked={mode === value}
+            onSelect={() => setTheme(value)}
+          >
+            <Check
+              aria-hidden="true"
+              className={mode === value ? 'opacity-100' : 'opacity-0'}
+            />
+            {MODE_LABEL[value]}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )
 }
+

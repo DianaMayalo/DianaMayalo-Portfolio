@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { BackToTop } from '@/components/back-to-top'
 import { ScrollProgress } from '@/components/scroll-progress'
+import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
 const geistSans = Geist({
@@ -42,21 +43,35 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
+      {/**
+       * Runs before the first paint so accessibility preferences are already on
+       * <html> when CSS resolves — no flash, no layout shift. Kept in sync with
+       * the attribute names in app/globals.css and the keys used by
+       * components/accessibility-panel.tsx.
+       * `suppressHydrationWarning` on <html> covers the attributes this sets.
+       */}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var prefs = JSON.parse(localStorage.getItem('a11y-prefs') || '{}');
+                var root = document.documentElement;
+                if (prefs.textSize && prefs.textSize !== 'normal') root.setAttribute('data-text-size', prefs.textSize);
+                if (prefs.highContrast) root.setAttribute('data-high-contrast', 'true');
+                if (prefs.reduceMotion) root.setAttribute('data-reduce-motion', 'true');
+                if (prefs.focusIndicators) root.setAttribute('data-strong-focus', 'true');
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
       <body className="bg-background text-foreground font-sans antialiased">
-
-        <script dangerouslySetInnerHTML={{ __html: `
-          try {
-            var prefs = JSON.parse(localStorage.getItem('a11y-prefs') || '{}');
-            if (prefs.textSize) document.documentElement.setAttribute('data-text-size', prefs.textSize);
-            if (prefs.highContrast) document.documentElement.setAttribute('data-high-contrast', 'true');
-            if (prefs.reduceMotion) document.documentElement.setAttribute('data-reduce-motion', 'true');
-            if (prefs.focusIndicators) document.documentElement.setAttribute('data-strong-focus', 'true');
-          } catch (e) {}
-        `}} />
-
-        {children}
-        <BackToTop />
-        <ScrollProgress />
+        <ThemeProvider defaultTheme="dark" enableSystem disableTransitionOnChange>
+          {children}
+          <BackToTop />
+          <ScrollProgress />
+        </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
