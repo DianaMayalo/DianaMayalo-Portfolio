@@ -156,7 +156,7 @@ export function Contact() {
                   <Send aria-hidden="true" />
                   Send Message
                 </Button>
-                <p className="text-center text-xs text-muted-foreground">
+                <p className="text-center text-xs text-muted-foreground" aria-live="polite">
                   Opens your email app with the message pre-filled.
                 </p>
               </div>
