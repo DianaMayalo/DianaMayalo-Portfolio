@@ -17,8 +17,7 @@ const projects = [
     gradient: 'from-orange-500/20 via-red-500/10 to-transparent',
     featured: true,
     image: '/images/nairobi-dashboard.png',
-    demoUrl: '#', // Add your live demo URL here
-    githubUrl: '#', // Add your GitHub URL here
+    demoUrl: 'https://nairobi-dashboard-web.vercel.app/',
   },
   {
     id: 2,

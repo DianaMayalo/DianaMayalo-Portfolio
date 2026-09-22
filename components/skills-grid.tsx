@@ -11,11 +11,9 @@ import {
   GitBranch,
   Container,
   BarChart3,
-  Layers,
-  Sparkles
+  Layers
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { Badge } from '@/components/ui/badge'
 
 const skillCategories = [
   {
@@ -87,10 +85,6 @@ export function SkillsGrid() {
     <section id="about" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="mb-16 text-center">
-          <Badge variant="outline" className="mb-4 border-primary/50 text-primary">
-            <Sparkles className="w-3 h-3 mr-1" />
-            Full-Stack Data Scientist & AI Founder
-          </Badge>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">My Toolkit</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             A comprehensive arsenal for building intelligent, scalable, data-driven solutions.
