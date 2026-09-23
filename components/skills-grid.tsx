@@ -98,7 +98,7 @@ export function SkillsGrid() {
               <div
                 key={category.title}
                 className={cn(
-                  'group relative rounded-2xl border bg-card/50 backdrop-blur-sm p-6 transition-all duration-300 hover:shadow-xl',
+                  'group relative rounded-2xl border bg-card/50 backdrop-blur-sm p-6 transition-all duration-300 hover:shadow-xl motion-reduce:translate-none',
                   category.borderColor,
                   category.bgGlow,
                   category.size
@@ -112,7 +112,7 @@ export function SkillsGrid() {
                   <div className="flex items-center gap-3 mb-4">
                     <div className={cn(
                       'p-2.5 rounded-xl bg-background/80 border border-border/50',
-                      'group-hover:scale-110 transition-transform duration-300'
+                      'group-hover:scale-110 transition-[scale,transform] duration-300 motion-reduce:scale-100'
                     )}>
                       <Icon className={cn('w-5 h-5', category.color)} />
                     </div>
